@@ -2,11 +2,13 @@ version: '3.7'
 
 volumes:
   data_sbdi:
+  data_rstudio-home:
 
 services:
 
   ide:
     image: ghcr.io/mskyttner/mirroreum
+    container_name: rstudio
     ports:
       - "8787:8787"
     env_file: .Renviron
@@ -19,6 +21,9 @@ services:
       - .Renviron:/home/rstudio/.Renviron:ro
       - ./login.html:/etc/rstudio/login.html:ro
       - ./rserver.conf:/etc/rstudio/rserver.conf
-      - ./home/rstudio:/home/rstudio
+        #- ./home/rstudio/accounts:/home/rstudio/accounts:z
+        #- ./home/rstudio/researchers:/home/rstudio/researchers:z
+        # - ./home/rstudio/skeleton:/home/rstudio/skeleton:z
+      - data_rstudio-home:/home/rstudio
     command: /init 
 
